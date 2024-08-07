@@ -9,6 +9,7 @@ import numpy as np
 from google.protobuf.json_format import MessageToDict
 import time
 import random
+import sys
 
 #category = input("Enter category to predict: ")
 
@@ -73,21 +74,21 @@ def mouseClick(event, x, y, flags, param):
 
 while True:
 
-    if __name__ == "__main__":
-        category = ''
-        path = './logo.png'
-        image = cv2.imread(path)
-        
-        window_name = 'Duofingo'
-        cv2.namedWindow(window_name)
-        cv2.setMouseCallback(window_name, mouseClick)
+    category = ''
+    path = './logo.png'
+    image = cv2.imread(path)
+    
+    window_name = 'Duofingo'
+    cv2.namedWindow(window_name)
+    cv2.resizeWindow(window_name, 1280, 720) 
+    cv2.setMouseCallback(window_name, mouseClick)
 
-        while True:
-            cv2.imshow(window_name, image)
-            if cv2.waitKey(0):
-                break
+    while True:
+        cv2.imshow(window_name, image)
+        if cv2.waitKey(0):
+            break
 
-        cv2.destroyAllWindows()
+    cv2.destroyAllWindows()
 
 
     model_name = 'pickle_jar/' +  category + '_model.p'
@@ -308,18 +309,49 @@ while True:
                 cv2.LINE_AA)
 
 
-                
-
         cv2.imshow('frame', frame)
         cv2.waitKey(100)
+    cv2.destroyAllWindows()
 
 
-    print("Final score: ", score)  
 
-    play_again = input("Enter 'quit' to exit the game: ")
-    if play_again == 'quit':
-        break
+# # _________________________________________________________________________________________________
+# # Exit Screen
+# # _________________________________________________________________________________________________
 
+    def exitOption(event, x, y, flags, param):
+        global decision, image, window_name 
+        if event == cv2.EVENT_LBUTTONDOWN:
+            image2 = image.copy()
+            if (x > 350) & (x < 600) & (y > 325) & (y < 580):
+                cv2.rectangle(image2, 
+                            (350, 325),    # (x1, y1) Top left corner
+                            (600, 580),   # (x2, y2) Bottom right corner
+                            (189, 200, 135), 
+                            2)
+                cv2.imshow(window_name, image2)
+                
 
-cap.release()
-cv2.destroyAllWindows()
+            elif (x > 680) & (x < 930) & (y > 325) & (y < 580):
+                cv2.rectangle(image2, 
+                            (680, 325),    # (x1, y1) Top left corner
+                            (930, 580),   # (x2, y2) Bottom right corner
+                            (189, 200, 135), 
+                            2)
+                cv2.imshow(window_name, image2)
+                cap.release()
+                sys.exit()
+
+    path = './exit_screen.png'
+    image = cv2.imread(path)
+    
+    window_name = 'Exit'
+    cv2.namedWindow(window_name)
+    cv2.setMouseCallback(window_name, exitOption)
+
+    while True:
+        cv2.imshow(window_name, image)
+        if cv2.waitKey(0):
+            break
+
+    cv2.destroyAllWindows()
