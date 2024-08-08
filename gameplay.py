@@ -21,7 +21,8 @@ import sys
 
 item_lists = {'letters': ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
               'animals': ['bird', 'coyote', 'deer', 'fish', 'frog', 'mouse', 'opossum', 'rabbit', 'raccoon', 'snake', 'squirrel', 'turtle', 'pig'],
-              'foods': ['apple', 'cookie', 'egg', 'hamburger', 'water', 'milk', 'peach', 'cheese', 'bread', 'cake', 'orange', 'pear', 'butter', 'corn', 'potato']}
+              'foods': ['apple', 'cookie', 'egg', 'hamburger', 'water', 'milk', 'peach', 'cheese', 'bread', 'cake', 'orange', 'pear', 'butter', 'corn', 'potato'],
+              'basics': ['hello', 'me', 'father', 'mother', 'yes', 'no', 'help', 'please', 'thank you', 'want', 'what', 'repeat', 'more', 'fine', 'learn', 'sign', 'finish']}
 
 
 cap = cv2.VideoCapture(0)
@@ -90,7 +91,7 @@ while True:
 
     cv2.destroyAllWindows()
 
-
+    category = 'basics'
     model_name = 'pickle_jar/' +  category + '_model.p'
     model_dict = pickle.load(open(model_name, 'rb'))
     model = model_dict['model']
@@ -260,6 +261,53 @@ while True:
                     if prediction_queue[0] == 'corn2':
                         if 'corn1' in prediction_queue:
                             predicted_character = 'corn'
+
+                # BASICS
+                if category == 'basics':
+                    if prediction_queue[0] == 'hello2':
+                        if 'hello1' in prediction_queue:
+                            predicted_character = 'hello'
+
+                    if prediction_queue[0] == 'yes2':
+                        if 'yes1' in prediction_queue:
+                            predicted_character = 'yes'
+                            
+                    if prediction_queue[0] == 'no2':
+                        if 'no1' in prediction_queue:
+                            predicted_character = 'no'
+                            
+                    if prediction_queue[0] == 'please2':
+                        if 'please1' in prediction_queue:
+                            predicted_character = 'please'
+                            
+                    if prediction_queue[0] == 'thanks2':
+                        if 'thanks1' in prediction_queue:
+                            predicted_character = 'thank you'
+                            
+                    if prediction_queue[0] == 'no2':
+                        if 'no1' in prediction_queue:
+                            predicted_character = 'no'
+                            
+                    if prediction_queue[0] == 'want':
+                        if 'what1' in prediction_queue:
+                            predicted_character = 'what'
+                            
+                    if prediction_queue[0] == 'learn2':
+                        if 'learn1' in prediction_queue:
+                            predicted_character = 'learn'
+                            
+                    if prediction_queue[0] == 'sign2':
+                        if 'sign1' in prediction_queue:
+                            predicted_character = 'sign'
+                            
+                    if prediction_queue[0] == 'finish2':
+                        if 'finish1' in prediction_queue:
+                            predicted_character = 'finish'
+
+                    
+
+                    
+
 
                     
 
