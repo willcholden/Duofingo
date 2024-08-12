@@ -22,7 +22,8 @@ import sys
 item_lists = {'letters': ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
               'animals': ['bird', 'coyote', 'deer', 'fish', 'frog', 'mouse', 'opossum', 'rabbit', 'raccoon', 'snake', 'squirrel', 'turtle', 'pig'],
               'foods': ['apple', 'cookie', 'egg', 'hamburger', 'water', 'milk', 'peach', 'cheese', 'bread', 'cake', 'orange', 'pear', 'butter', 'corn', 'potato'],
-              'basics': ['hello', 'me', 'father', 'mother', 'yes', 'no', 'help', 'please', 'thank you', 'want', 'what', 'repeat', 'more', 'fine', 'learn', 'sign', 'finish']}
+              'basics': ['hello', 'me', 'father', 'mother', 'yes', 'no', 'help', 'please', 'thank you', 'want', 'what', 'repeat', 'more', 'fine', 'learn', 'sign', 'finish'],
+              'verbs': ['eat', 'drink', 'walk', 'run', 'sit', 'stand', 'sleep', 'stop', 'wash', 'drop', 'drive', 'jump', 'open', 'throw']}
 
 
 cap = cv2.VideoCapture(0)
@@ -44,35 +45,38 @@ def mouseClick(event, x, y, flags, param):
     global category, image, window_name 
     if event == cv2.EVENT_LBUTTONDOWN:
         image2 = image.copy()
-        if (x > 350) & (x < 600) & (y > 325) & (y < 580):
-            category = 'animals'
-            cv2.rectangle(image2, 
-                        (350, 325),    # (x1, y1) Top left corner
-                        (600, 580),   # (x2, y2) Bottom right corner
-                        (189, 200, 135), 
-                        2)
-            cv2.imshow(window_name, image2)
-            
 
-        elif (x > 680) & (x < 930) & (y > 325) & (y < 580):
+        # LETTERS
+        if (x > 40) & (x < 240) & (y > 300) & (y < 550):
             category = 'letters'
-            cv2.rectangle(image2, 
-                        (680, 325),    # (x1, y1) Top left corner
-                        (930, 580),   # (x2, y2) Bottom right corner
-                        (189, 200, 135), 
-                        2)
+            cv2.rectangle(image2, (40, 300), (240, 550), (189, 200, 135), 2)
             cv2.imshow(window_name, image2)
 
-        elif (x > 75) & (x < 325) & (y > 325) & (y < 580):
+        # BASICS
+        elif (x > 325) & (x < 525) & (y > 300) & (y < 550):
+            category = 'basics'
+            cv2.rectangle(image2, (325, 300), (525, 550), (189, 200, 135), 2)
+            cv2.imshow(window_name, image2)
+
+        # FOODS
+        elif (x > 540) & (x < 740) & (y > 300) & (y < 550):
             category = 'foods'
-            cv2.rectangle(image2, 
-                        (75, 325),    # (x1, y1) Top left corner
-                        (325, 580),   # (x2, y2) Bottom right corner
-                        (189, 200, 135), 
-                        2)
+            cv2.rectangle(image2, (540, 300), (740, 550), (189, 200, 135), 2)
             cv2.imshow(window_name, image2)
 
+        # VERBS
+        elif (x > 780) & (x < 980) & (y > 300) & (y < 550):
+            category = 'verbs'
+            cv2.rectangle(image2, (780, 300), (980, 550), (189, 200, 135), 2)
+            cv2.imshow(window_name, image2)
 
+        # ANIMALS
+        elif (x > 1020) & (x < 1220) & (y > 300) & (y < 550):
+            category = 'animals'
+            cv2.rectangle(image2, (1020, 300),  (1220, 550),  (189, 200, 135), 2)
+            cv2.imshow(window_name, image2)
+
+    
 while True:
 
     category = ''
@@ -86,12 +90,11 @@ while True:
 
     while True:
         cv2.imshow(window_name, image)
-        if cv2.waitKey(0):
+        if cv2.waitKey(0) and category != '':
             break
 
     cv2.destroyAllWindows()
 
-    category = 'basics'
     model_name = 'pickle_jar/' +  category + '_model.p'
     model_dict = pickle.load(open(model_name, 'rb'))
     model = model_dict['model']
@@ -112,15 +115,6 @@ while True:
 
         ellapsed_time = time.time() - start_time
         curr_time = total_time - ellapsed_time
-        
-        cv2.putText(frame, 
-                "time remaining: " + str(curr_time)[0:4],
-                (50, 50), 
-                cv2.FONT_HERSHEY_SIMPLEX, 
-                1.3, 
-                (230, 230, 250), 
-                3, 
-                cv2.LINE_AA)
         
 
 
@@ -176,7 +170,7 @@ while True:
                 prediction = model.predict([np.asarray(data_aux)])
                 
                 predicted_character = prediction[0]
-                if max(model.predict_proba([np.asarray(data_aux)])[0]) < 0.25:
+                if max(model.predict_proba([np.asarray(data_aux)])[0]) < 0.35:
                     predicted_character = ""
 
 
@@ -304,20 +298,47 @@ while True:
                         if 'finish1' in prediction_queue:
                             predicted_character = 'finish'
 
-                    
-
-                    
-
-
-                    
-
-                    
-
-                    
-
-                    
-                    
-
+                # VERBS
+                if category == 'verbs':
+                    if prediction_queue[0] == 'drink2':
+                        if 'drink1' in prediction_queue:
+                            predicted_character = 'drink'
+                            
+                    if prediction_queue[0] == 'walk2':
+                        if 'walk1' in prediction_queue:
+                            predicted_character = 'walk'
+                            
+                    if prediction_queue[0] == 'run2':
+                        if 'run1' in prediction_queue:
+                            predicted_character = 'run'
+                            
+                    if prediction_queue[0] == 'eat':
+                        if 'sleep1' in prediction_queue:
+                            predicted_character = 'sleep'
+                            
+                    if prediction_queue[0] == 'drop2':
+                        if 'drop1' in prediction_queue:
+                            predicted_character = 'drop'
+                            
+                    if prediction_queue[0] == 'drive2':
+                        if 'drive1' in prediction_queue:
+                            predicted_character = 'drive'
+                            
+                    if prediction_queue[0] == 'jump2':
+                        if 'stand' in prediction_queue:
+                            predicted_character = 'jump'
+                            
+                    if prediction_queue[0] == 'open2':
+                        if 'open1' in prediction_queue:
+                            predicted_character = 'open'
+                            
+                    if prediction_queue[0] == 'open1':
+                        if 'open2' in prediction_queue:
+                            predicted_character = 'close'
+                            
+                    if prediction_queue[0] == 'throw2':
+                        if 'throw1' in prediction_queue:
+                            predicted_character = 'throw'
                     
 
                 # _____________________________________________________________________________________
@@ -336,25 +357,36 @@ while True:
                 
         if predicted_character == target:
             score += 1
-            target = item_lists[category][random.randint(0, len(item_lists[category])-1)]            
+            target = item_lists[category][random.randint(0, len(item_lists[category])-1)]  
+
+        cv2.rectangle(frame, (0, 645), (1280, 720), (209, 222, 150), -1)
                 
         cv2.putText(frame, 
                 "target: " + target, 
-                (50, 150), 
+                (50, 695), 
                 cv2.FONT_HERSHEY_SIMPLEX, 
-                1.3, 
-                (230, 230, 250), 
+                1.0, 
+                (170, 180, 120), 
                 3, 
                 cv2.LINE_AA)
         
         cv2.putText(frame, 
                 "score: " + str(score), 
-                (50, 250), 
+                (550, 695), 
                 cv2.FONT_HERSHEY_SIMPLEX, 
-                1.3, 
-                (230, 230, 250), 
+                1.0, 
+                (170, 180, 120), 
                 3, 
                 cv2.LINE_AA)
+        
+        cv2.putText(frame, 
+        "time remaining: " + str(curr_time)[0:4],
+        (900, 695), 
+        cv2.FONT_HERSHEY_SIMPLEX, 
+        1.0, 
+        (170, 180, 120), 
+        3, 
+        cv2.LINE_AA)
 
 
         cv2.imshow('frame', frame)
@@ -371,23 +403,16 @@ while True:
         global decision, image, window_name 
         if event == cv2.EVENT_LBUTTONDOWN:
             image2 = image.copy()
-            if (x > 350) & (x < 600) & (y > 325) & (y < 580):
-                cv2.rectangle(image2, 
-                            (350, 325),    # (x1, y1) Top left corner
-                            (600, 580),   # (x2, y2) Bottom right corner
+            if (x > 250) & (x < 550) & (y > 300) & (y < 410):
+                cv2.rectangle(image, 
+                            (250, 300),    # (x1, y1) Top left corner
+                            (550, 410),   # (x2, y2) Bottom right corner
                             (189, 200, 135), 
                             2)
                 cv2.imshow(window_name, image2)
                 
 
-            elif (x > 680) & (x < 930) & (y > 325) & (y < 580):
-                cv2.rectangle(image2, 
-                            (680, 325),    # (x1, y1) Top left corner
-                            (930, 580),   # (x2, y2) Bottom right corner
-                            (189, 200, 135), 
-                            2)
-                cv2.imshow(window_name, image2)
-                cap.release()
+            elif (x > 735) & (x < 1035) & (y > 300) & (y < 410):
                 sys.exit()
 
     path = './exit_screen.png'

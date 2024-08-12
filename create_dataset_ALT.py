@@ -8,7 +8,7 @@ from google.protobuf.json_format import MessageToDict
 import os
 import time 
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils

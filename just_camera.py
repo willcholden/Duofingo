@@ -21,16 +21,37 @@ window_name = 'image'
 # Displaying the image
 
 cv2.rectangle(image, 
-    (350, 325),    # (x1, y1) Top left corner
-    (600, 580),   # (x2, y2) Bottom right corner
-    (0,0,250), 
-    1)
+    (40, 300),    # (x1, y1) Top left corner
+    (240, 550),   # (x2, y2) Bottom right corner
+    (189, 200, 135), 
+    2)
 
 cv2.rectangle(image, 
-    (680, 325),    # (x1, y1) Top left corner
-    (930, 580),   # (x2, y2) Bottom right corner
-    (0,0,250), 
-    1)
+    (325, 300),    # (x1, y1) Top left corner
+    (525, 550),   # (x2, y2) Bottom right corner
+    (189, 200, 135), 
+    2)
+
+cv2.rectangle(image, 
+    (540, 300),    # (x1, y1) Top left corner
+    (740, 550),   # (x2, y2) Bottom right corner
+    (189, 200, 135), 
+    2)
+
+cv2.rectangle(image, 
+    (780, 300),    # (x1, y1) Top left corner
+    (980, 550),   # (x2, y2) Bottom right corner
+    (189, 200, 135), 
+    2)
+
+cv2.rectangle(image, 
+    (1020, 300),    # (x1, y1) Top left corner
+    (1220, 550),   # (x2, y2) Bottom right corner
+    (189, 200, 135), 
+    2)
+
+cv2.rectangle(image, 
+                      (0, 645), (1280, 720), (209, 222, 150), -1) 
 
 cv2.imshow(window_name, image)
 
