@@ -100,7 +100,7 @@ while True:
     model = model_dict['model']
     target = item_lists[category][random.randint(0, len(item_lists[category])-1)]
 
-    total_time = 60
+    total_time = 45
     start_time = time.time()
     curr_time = total_time
     score = 0
@@ -135,12 +135,12 @@ while True:
         frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         results = hands.process(frame_rgb)
         if results.multi_hand_landmarks:
-            for hand_landmarks in results.multi_hand_landmarks:
-                mp_drawing.draw_landmarks(frame,
-                                        hand_landmarks,
-                                        mp_hands.HAND_CONNECTIONS,
-                                        mp_drawing_styles.get_default_hand_landmarks_style(),
-                                        mp_drawing_styles.get_default_hand_connections_style())
+            # for hand_landmarks in results.multi_hand_landmarks:
+            #     mp_drawing.draw_landmarks(frame,
+            #                             hand_landmarks,
+            #                             mp_hands.HAND_CONNECTIONS,
+            #                             mp_drawing_styles.get_default_hand_landmarks_style(),
+            #                             mp_drawing_styles.get_default_hand_connections_style())
                 
                 
             for hand_landmarks in results.multi_hand_landmarks:
@@ -346,16 +346,16 @@ while True:
                 # -------------------------------------------------------------------------------------
 
                 
-                cv2.putText(frame, 
-                        predicted_character,
-                        (x1, y1 - 10), 
-                        cv2.FONT_HERSHEY_SIMPLEX, 
-                        1.3, 
-                        (230, 230, 250), 
-                        3, 
-                        cv2.LINE_AA)
+                # cv2.putText(frame, 
+                #         predicted_character,
+                #         (x1, y1 - 10), 
+                #         cv2.FONT_HERSHEY_SIMPLEX, 
+                #         1.3, 
+                #         (230, 230, 250), 
+                #         3, 
+                #         cv2.LINE_AA)
                 
-        if predicted_character == target:
+        if prediction_queue[4] == target:
             score += 1
             target = item_lists[category][random.randint(0, len(item_lists[category])-1)]  
 
@@ -399,6 +399,26 @@ while True:
 # # Exit Screen
 # # _________________________________________________________________________________________________
 
+    # HIGH SCORES
+    f=open('./pickle_jar/highscores.pickle', 'rb')
+    highscores_dict = pickle.load(f)
+    f.close()
+    
+    if score <= highscores_dict[category]:
+        exit_script1 = "Score: " + str(score)
+        exit_script2 = "High score: " + str(highscores_dict[category])
+    else:
+        exit_script1 = "New high score: " + str(score) 
+        exit_script2 = "Previous high score: " + str(highscores_dict[category])
+
+        highscores_dict[category] = score
+        f=open('./pickle_jar/highscores.pickle', 'wb')
+        pickle.dump(highscores_dict, f)
+        f.close()
+
+
+
+
     def exitOption(event, x, y, flags, param):
         global decision, image, window_name 
         if event == cv2.EVENT_LBUTTONDOWN:
@@ -423,6 +443,24 @@ while True:
     cv2.setMouseCallback(window_name, exitOption)
 
     while True:
+        cv2.putText(image, 
+                    exit_script1,
+                    (275, 200), 
+                    cv2.FONT_HERSHEY_DUPLEX, 
+                    2.0, 
+                    (154, 162, 111), 
+                    5, 
+                    cv2.LINE_AA)
+        
+        cv2.putText(image, 
+                    exit_script2,
+                    (275, 260), 
+                    cv2.FONT_HERSHEY_DUPLEX, 
+                    2.0, 
+                    (154, 162, 111), 
+                    5, 
+                    cv2.LINE_AA)
+        
         cv2.imshow(window_name, image)
         if cv2.waitKey(0):
             break
