@@ -21,7 +21,7 @@ import sys
 
 item_lists = {'letters': ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
               'animals': ['bird', 'coyote', 'deer', 'fish', 'frog', 'mouse', 'opossum', 'rabbit', 'raccoon', 'snake', 'squirrel', 'turtle', 'pig'],
-              'foods': ['apple', 'cookie', 'egg', 'hamburger', 'water', 'milk', 'peach', 'cheese', 'bread', 'cake', 'orange', 'pear', 'butter', 'corn', 'potato'],
+              'foods': ['apple', 'egg', 'hamburger', 'water', 'milk', 'peach', 'cheese', 'bread', 'cake', 'orange', 'pear', 'butter', 'corn', 'potato'],
               'basics': ['hello', 'me', 'father', 'mother', 'yes', 'no', 'help', 'please', 'thank you', 'want', 'what', 'repeat', 'more', 'fine', 'learn', 'sign', 'finish'],
               'verbs': ['eat', 'drink', 'walk', 'run', 'sit', 'stand', 'sleep', 'stop', 'wash', 'drop', 'drive', 'jump', 'open', 'throw']}
 
@@ -100,7 +100,7 @@ while True:
     model = model_dict['model']
     target = item_lists[category][random.randint(0, len(item_lists[category])-1)]
 
-    total_time = 45
+    total_time = 60
     start_time = time.time()
     curr_time = total_time
     score = 0
@@ -135,12 +135,12 @@ while True:
         frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         results = hands.process(frame_rgb)
         if results.multi_hand_landmarks:
-            # for hand_landmarks in results.multi_hand_landmarks:
-            #     mp_drawing.draw_landmarks(frame,
-            #                             hand_landmarks,
-            #                             mp_hands.HAND_CONNECTIONS,
-            #                             mp_drawing_styles.get_default_hand_landmarks_style(),
-            #                             mp_drawing_styles.get_default_hand_connections_style())
+            for hand_landmarks in results.multi_hand_landmarks:
+                mp_drawing.draw_landmarks(frame,
+                                        hand_landmarks,
+                                        mp_hands.HAND_CONNECTIONS,
+                                        mp_drawing_styles.get_default_hand_landmarks_style(),
+                                        mp_drawing_styles.get_default_hand_connections_style())
                 
                 
             for hand_landmarks in results.multi_hand_landmarks:
@@ -355,7 +355,7 @@ while True:
                 #         3, 
                 #         cv2.LINE_AA)
                 
-        if prediction_queue[4] == target:
+        if predicted_character == target:
             score += 1
             target = item_lists[category][random.randint(0, len(item_lists[category])-1)]  
 
