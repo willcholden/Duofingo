@@ -36,6 +36,13 @@ Lastly, an issue I faced while creating the "letter" category was similarity bet
 
 The second solution I introduced for this problem was the random forest "predict_proba" method. A user would receive credit for a correct sign only if the predictor was at least 35% confident that the user was indeed correct. This is helpful for similar signs like "u" and "r" where the only difference is a slight shift between the index and middle fingers. With these two methods in place, the predictor became extramely accurate when deciding to give credit or not. 
 
+## How To Get Started
+
+To play this game yourself, run the following commands in a terminal window:
+
+`pip install -r requirements.txt`
+`python3 gameplay.py`
+
 ## Video Demonstrations
 
 ### Letters
