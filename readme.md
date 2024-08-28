@@ -40,7 +40,21 @@ The second solution I introduced for this problem was the random forest "predict
 
 ### Letters
 
-[![Letters Demo](https://img.youtube.com/vi/q5lIiUTLBZU/0.jpg)](https://www.youtube.com/watch?v=q5lIiUTLBZU&t=1m30s)
+[![Letters Demo](https://img.youtube.com/vi/q5lIiUTLBZU/0.jpg)](https://www.youtube.com/watch?v=q5lIiUTLBZU&t=0m0s)
 
 
-[Letters Demo at 1:30](https://www.youtube.com/watch?v=q5lIiUTLBZU&t=1m30s)
+### Basics
+[![Basics Demo](https://img.youtube.com/vi/q5lIiUTLBZU/0.jpg)](https://www.youtube.com/watch?v=q5lIiUTLBZU&t=1m16s)
+
+
+### Foods
+[![Foods Demo](https://img.youtube.com/vi/q5lIiUTLBZU/0.jpg)](https://www.youtube.com/watch?v=q5lIiUTLBZU&t=2m27s)
+
+
+
+### Verbs
+[![Verbs Demo](https://img.youtube.com/vi/q5lIiUTLBZU/0.jpg)](https://www.youtube.com/watch?v=q5lIiUTLBZU&t=3m38s)
+
+
+### Animals
+[![Animals Demo](https://img.youtube.com/vi/q5lIiUTLBZU/0.jpg)](https://www.youtube.com/watch?v=q5lIiUTLBZU&t=4m48s)
