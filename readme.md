@@ -40,5 +40,5 @@ The second solution I introduced for this problem was the random forest "predict
 
 ### Letters
 
-[![Letters Demmo](https://img.youtube.com/vi/q5lIiUTLBZU/0.jpg)](https://www.youtube.com/watch?v=q5lIiUTLBZU)
+[![Letters Demmo](https://img.youtube.com/vi/q5lIiUTLBZU/0.jpg)](https://www.youtube.com/watch?v=q5lIiUTLBZU&t=1m30s)
 
