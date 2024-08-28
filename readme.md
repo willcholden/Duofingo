@@ -41,6 +41,7 @@ The second solution I introduced for this problem was the random forest "predict
 To play this game yourself, run the following commands in a terminal window:
 
 `pip install -r requirements.txt`
+
 `python3 gameplay.py`
 
 ## Video Demonstrations
